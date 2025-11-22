@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Bookstore</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#ffffcc;">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <img src="~/Images/open-book.png" width="30" height="30" class="d-inline-block align-top" alt="" />
+                Bookstore
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#"><i class="fal fa-chart-pie"></i> Mua nhiều nhất</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "GioHang")"><i class="fal fa-shopping-cart"></i> Giỏ hàng</a>
+                    </li>
+                    @if (Session["MaKhachHang"] == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Login", "Home")"><i class="fal fa-sign-in-alt"></i> Đăng nhập</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fal fa-user-circle"></i> @Session["HoTenKhachHang"].ToString()
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("MyOrders", "KhachHang")"><i class="fal fa-fw fa-file-chart-pie"></i> Đơn hàng của tôi</a>
+                                <a class="dropdown-item" href="@Url.Action("ChangePassword", "KhachHang")"><i class="fal fa-fw fa-key"></i> Đổi mật khẩu</a>
+                                <a class="dropdown-item" href="@Url.Action("Logout", "KhachHang")"><i class="fal fa-fw fa-sign-out-alt"></i> Đăng xuất</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Bạn muốn tìm gì?" />
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fal fa-search"></i> Tìm kiếm</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container-fluid body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; Bản quyền @DateTime.Now.Year bởi DH19PM.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
